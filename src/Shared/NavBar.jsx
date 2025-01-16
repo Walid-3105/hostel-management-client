@@ -1,19 +1,40 @@
-import React from "react";
-
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
+import toast from "react-hot-toast";
 const NavBar = () => {
+  const { user, logOut } = useAuth();
+  const [isHovering, setIsHovering] = useState(false);
+  const profile = user?.photoURL;
+  const displayName = user?.displayName;
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logged Out Successfully");
+      })
+      .catch((error) => {
+        console.error("Logout Error:", error.message);
+        toast.error("An error occurred while logging out. Please try again.");
+      });
+  };
+
   const navItems = (
     <>
       <li>
-        <a>Item 1</a>
+        <Link to={"/"}>Home</Link>
       </li>
       <li>
-        <a>Item 3</a>
+        <Link to={"/meals"}>Meals</Link>
+      </li>
+      <li>
+        <Link to={"/upComingMeals"}>Upcoming Meals</Link>
       </li>
     </>
   );
   return (
     <div>
-      <div className="navbar bg-base-100 fixed z-10 mx-auto right-0">
+      <div className="navbar bg-base-100 fixed z-10 mx-auto right-0 px-10">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -45,7 +66,39 @@ const NavBar = () => {
           <ul className="menu menu-horizontal px-1">{navItems}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {user && user.email ? (
+            <div
+              className="flex items-center gap-2 relative"
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+            >
+              {isHovering && (
+                <div className="absolute p-2 w-36 rounded-md bg-gray-400 shadow-md top-10 -left-20 z-10">
+                  <p className="text-sm mb-1 text-white">
+                    {displayName || "Anonymous User"}
+                  </p>
+                  {/* todo : make dashboard route ternary if user is admin opening route is adminProfile else User Profile */}
+                  <Link to={"/dashboard/"} className="btn btn-sm mb-1">
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="btn btn-sm bg-[#0f9ccf] text-white hover:bg-sky-900 rounded-xl"
+                  >
+                    Log-Out
+                  </button>
+                </div>
+              )}
+              {/* Profile Image */}
+              <img
+                className="w-8 h-8 lg:w-10 lg:h-10 rounded-full border-2 border-white"
+                src={profile || "https://via.placeholder.com/150"}
+                alt="User Profile"
+              />
+            </div>
+          ) : (
+            <Link to={"/login"}>Join Us</Link>
+          )}
         </div>
       </div>
     </div>
