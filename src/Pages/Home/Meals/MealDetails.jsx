@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import useAuth from "../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const MealDetails = () => {
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   // Fetch meal details using React Query
@@ -49,9 +53,25 @@ const MealDetails = () => {
 
   // Handle like button click
   const handleLike = () => {
-    const newLikes = like + 1;
-    setLike(newLikes); // Optimistically update UI
-    likeMutation.mutate(newLikes); // Send update request to the server
+    if (user && user.email) {
+      const newLikes = like + 1;
+      setLike(newLikes);
+      likeMutation.mutate(newLikes);
+    } else {
+      Swal.fire({
+        title: "Please Login to Like Meal",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -87,10 +107,11 @@ const MealDetails = () => {
 
             <button
               onClick={handleLike}
-              className="flex items-center gap-1 bg-blue-500 text-white px-3 py-1 rounded-md"
+              className="flex items-center gap-1 bg-blue-500 text-white px-4 py-1 rounded-md w-[80px] h-[32px]"
               disabled={likeMutation.isLoading}
             >
-              <FaRegThumbsUp /> {like}
+              <FaRegThumbsUp className="text-lg" />
+              <span className="min-w-[20px]  text-center">{like}</span>
             </button>
           </div>
 
