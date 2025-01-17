@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import GoogleUserLogin from "../../Shared/GoogleUserLogin";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useAuth();
@@ -180,7 +181,9 @@ const Register = () => {
           </form>
 
           {/* Google Login Placeholder */}
-          <div>{/* <GoogleLogin /> */}</div>
+          <div>
+            <GoogleUserLogin />
+          </div>
         </div>
       </div>
       <div className="col-span-2">{/* <WelcomeBanner /> */}</div>

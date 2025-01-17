@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import GoogleUserLogin from "../../Shared/GoogleUserLogin";
 
 const Login = () => {
   const { userLogin, signInWithGoogle } = useAuth();
@@ -102,7 +103,9 @@ const Login = () => {
               </div>
             </form>
             {/* Goggle */}
-            <div>{/* <GoggleLogin></GoggleLogin> */}</div>
+            <div>
+              <GoogleUserLogin />
+            </div>
           </div>
         </div>
         <div className="col-span-2">
