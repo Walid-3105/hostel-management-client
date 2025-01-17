@@ -47,7 +47,7 @@ const AddMeals = () => {
         reviews_count: 0,
       };
 
-      const mealRes = await axiosSecure.post("/meals", mealData);
+      const mealRes = await axiosSecure.post("/meal", mealData);
       console.log(mealRes.data);
       if (mealRes.data.insertedId) {
         toast.success(`${data.title} added Successfully`);
@@ -125,7 +125,6 @@ const AddMeals = () => {
           {/* meals price */}
           <input
             type="number"
-            step="0.01"
             {...register("price", { required: true })}
             placeholder="Price"
             className="input input-bordered w-full"

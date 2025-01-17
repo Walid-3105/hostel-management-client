@@ -56,12 +56,12 @@ const AuthProvider = ({ children }) => {
           if (res.data.token) {
             localStorage.setItem("token", res.data.token);
             setLoading(false);
-            console.log("set Token", res.data.token);
+            // console.log("set Token", res.data.token);
           }
         });
       } else {
         localStorage.removeItem("token");
-        console.log("token deleted");
+        // console.log("token deleted");
         setLoading(false);
       }
     });
