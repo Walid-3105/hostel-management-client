@@ -19,6 +19,7 @@ const GoogleUserLogin = () => {
         const userInfo = {
           email: res.user.email,
           name: res.user.displayName,
+          badge: "Bronze",
         };
         axiosPublic.post("/users", userInfo).then((res) => {
           console.log("user added", res.data);

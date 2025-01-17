@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // React Hook Form setup
   const {
@@ -30,10 +31,11 @@ const Register = () => {
       const userInfo = {
         name,
         email,
+        badge: "Bronze",
       };
       axiosPublic.post("/users", userInfo).then((res) => {
         console.log("user added successfully");
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       });
 
       toast.success("User created successfully!");
