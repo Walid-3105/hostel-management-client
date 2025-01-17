@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBLOG7DBz3QMan86uDVxa3icoePjLvUMHE",
-  authDomain: "lodge-ease.firebaseapp.com",
-  projectId: "lodge-ease",
-  storageBucket: "lodge-ease.firebasestorage.app",
-  messagingSenderId: "84930881364",
-  appId: "1:84930881364:web:76b141e89304bd59a80ac1",
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase
