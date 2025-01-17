@@ -12,9 +12,11 @@ import { MdOutlineUpcoming } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
 import { VscGitPullRequestCreate, VscPreview } from "react-icons/vsc";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
 
 const Dashboard = () => {
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
+
   return (
     <div className="flex">
       <div className="min-h-screen w-64 bg-orange-400">

@@ -8,6 +8,7 @@ import AddMeals from "../Pages/Dashboard/Admin/AddMeals";
 import AdminProfile from "../Pages/Dashboard/Admin/AdminProfile";
 import MyProfile from "../Pages/Dashboard/User/MyProfile";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
+import AdminRoute from "./AdminRoute";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -34,15 +35,27 @@ export const router = createBrowserRouter([
       // Admin
       {
         path: "adminProfile",
-        element: <AdminProfile></AdminProfile>,
+        element: (
+          <AdminRoute>
+            <AdminProfile></AdminProfile>
+          </AdminRoute>
+        ),
       },
       {
         path: "manageUsers",
-        element: <ManageUsers></ManageUsers>,
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
       },
       {
         path: "addMeals",
-        element: <AddMeals></AddMeals>,
+        element: (
+          <AdminRoute>
+            <AddMeals></AddMeals>
+          </AdminRoute>
+        ),
       },
       // User
       {
