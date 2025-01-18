@@ -32,6 +32,8 @@ const MealDetails = () => {
 
   // State for likes (sync with fetched data)
   const [like, setLike] = useState(0);
+  const [showReviewBox, setShowReviewBox] = useState(false);
+  const [reviewText, setReviewText] = useState("");
 
   // Sync likes with fetched meal data
   useEffect(() => {
@@ -76,19 +78,62 @@ const MealDetails = () => {
   });
 
   const handleRequest = async () => {
-    const requestItem = {
+    if (user && user.email) {
+      const requestItem = {
+        mealId: meal._id,
+        email: user?.email,
+        name: user?.displayName,
+        title: meal.title,
+        reviews_count: meal.reviews_count,
+        likes: meal.likes,
+        category: meal.category,
+        status: "pending",
+      };
+      const res = await axiosSecure.post("/request", requestItem);
+      toast.success("Meal Request added");
+      console.log(res.data);
+    } else {
+      Swal.fire({
+        title: "Please Login to Request Meal",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
+  };
+
+  const handleReviewSubmit = async () => {
+    const reviewData = {
       mealId: meal._id,
+      title: meal.title,
       email: user.email,
       name: user.displayName,
-      title: meal.title,
-      reviews_count: meal.reviews_count,
       likes: meal.likes,
-      category: meal.category,
-      status: "pending",
+      reviews_count: meal.reviews_count,
+      review: reviewText,
     };
-    const res = await axiosSecure.post("/request", requestItem);
-    toast.success("Meal Request added");
-    console.log(res.data);
+
+    try {
+      await axiosSecure.post("/review", reviewData);
+
+      await axiosSecure.patch(`/meal/${meal._id}`, {
+        reviews_count: (meal.reviews_count || 0) + 1,
+      });
+      toast.success("Review submitted successfully!");
+      setReviewText(""); // Clear textarea
+      setShowReviewBox(false); // Hide review box after submission
+      refetch(); // Update review count
+    } catch (error) {
+      console.error("Error submitting review:", error);
+      toast.error("Failed to submit review!");
+    }
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -139,10 +184,30 @@ const MealDetails = () => {
             >
               Request Meal
             </button>
-            <button className="w-full bg-gray-700 text-white py-2 rounded-md">
-              View Reviews
+            <button
+              className="w-full bg-gray-700 text-white py-2 rounded-md"
+              onClick={() => setShowReviewBox(!showReviewBox)}
+            >
+              Reviews ({meal.reviews_count || 0})
             </button>
           </div>
+          {showReviewBox && (
+            <div className="mt-4">
+              <textarea
+                className="w-full p-2 border border-gray-300 rounded-md"
+                rows="3"
+                placeholder="Write your review..."
+                value={reviewText}
+                onChange={(e) => setReviewText(e.target.value)}
+              />
+              <button
+                onClick={handleReviewSubmit}
+                className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                Submit Review
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
