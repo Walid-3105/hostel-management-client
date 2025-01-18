@@ -8,7 +8,7 @@ const useMeals = () => {
     isPending,
     refetch,
   } = useQuery({
-    queryKey: ["meals"],
+    queryKey: ["meal"],
     queryFn: async () => {
       const res = await axiosPublic.get("/meal");
       return res.data;

@@ -7,6 +7,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useAuth from "../../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const MealDetails = () => {
   const axiosSecure = useAxiosSecure();
@@ -39,18 +40,6 @@ const MealDetails = () => {
     }
   }, [meal.likes]);
 
-  // Mutation to update likes on the server
-  const likeMutation = useMutation({
-    mutationFn: async (newLikes) => {
-      const res = await axiosSecure.patch(`/meal/${id}`, { likes: newLikes });
-      return res.data.likes;
-    },
-    onSuccess: (updatedLikes) => {
-      setLike(updatedLikes); // Update UI immediately
-      refetch(); // Sync with the latest data from the server
-    },
-  });
-
   // Handle like button click
   const handleLike = () => {
     if (user && user.email) {
@@ -72,6 +61,34 @@ const MealDetails = () => {
         }
       });
     }
+  };
+
+  // Mutation to update likes on the server
+  const likeMutation = useMutation({
+    mutationFn: async (newLikes) => {
+      const res = await axiosSecure.patch(`/meal/${id}`, { likes: newLikes });
+      return res.data.likes;
+    },
+    onSuccess: (updatedLikes) => {
+      setLike(updatedLikes);
+      refetch();
+    },
+  });
+
+  const handleRequest = async () => {
+    const requestItem = {
+      mealId: meal._id,
+      email: user.email,
+      name: user.displayName,
+      title: meal.title,
+      reviews_count: meal.reviews_count,
+      likes: meal.likes,
+      category: meal.category,
+      status: "pending",
+    };
+    const res = await axiosSecure.post("/request", requestItem);
+    toast.success("Meal Request added");
+    console.log(res.data);
   };
 
   if (isLoading) return <p>Loading...</p>;
@@ -116,7 +133,10 @@ const MealDetails = () => {
           </div>
 
           <div className="mt-5 flex gap-3">
-            <button className="w-full bg-green-500 text-white py-2 rounded-md">
+            <button
+              onClick={handleRequest}
+              className="w-full bg-green-500 text-white py-2 rounded-md"
+            >
               Request Meal
             </button>
             <button className="w-full bg-gray-700 text-white py-2 rounded-md">
