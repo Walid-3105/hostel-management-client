@@ -15,6 +15,14 @@ const MealDetails = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
+  // users data
+  const { data: users = [] } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users?email=${user.email}`);
+      return res.data;
+    },
+  });
 
   // Fetch meal details using React Query
   const {
@@ -77,21 +85,31 @@ const MealDetails = () => {
     },
   });
 
-  const handleRequest = async () => {
+  const handleRequestMeal = async () => {
     if (user && user.email) {
-      const requestItem = {
-        mealId: meal._id,
-        email: user?.email,
-        name: user?.displayName,
-        title: meal.title,
-        reviews_count: meal.reviews_count,
-        likes: meal.likes,
-        category: meal.category,
-        status: "pending",
-      };
-      const res = await axiosSecure.post("/request", requestItem);
-      toast.success("Meal Request added");
-      console.log(res.data);
+      const loggedInUser = users.find((u) => u.email === user.email);
+      const hasValidBadge =
+        loggedInUser?.badge &&
+        ["Silver", "Gold", "Platinum"].includes(loggedInUser.badge);
+      if (hasValidBadge) {
+        const requestItem = {
+          mealId: meal._id,
+          email: user?.email,
+          name: user?.displayName,
+          title: meal.title,
+          reviews_count: meal.reviews_count,
+          likes: meal.likes,
+          category: meal.category,
+          status: "pending",
+        };
+        const res = await axiosSecure.post("/request", requestItem);
+        toast.success("Meal Request added");
+        console.log(res.data);
+      } else {
+        toast.error(
+          "You need to purchase a Silver, Gold, or Platinum package to request a meal."
+        );
+      }
     } else {
       Swal.fire({
         title: "Please Login to Request Meal",
@@ -179,7 +197,7 @@ const MealDetails = () => {
 
           <div className="mt-5 flex gap-3">
             <button
-              onClick={handleRequest}
+              onClick={handleRequestMeal}
               className="w-full bg-green-500 text-white py-2 rounded-md"
             >
               Request Meal

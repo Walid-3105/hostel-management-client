@@ -10,6 +10,8 @@ import MyProfile from "../Pages/Dashboard/User/MyProfile";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import MealDetails from "../Pages/Home/Meals/MealDetails";
+import CheckoutForm from "../Pages/Home/Payment/CheckoutForm";
+import Payment from "../Pages/Home/Payment/Payment";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,8 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "meal/:id",
         element: <MealDetails></MealDetails>,
-        // loader: ({ params }) =>
-        //   fetch(`http://localhost:5000/meal/${params.id}`),
+      },
+      {
+        path: "checkoutForm/:packageName/:price",
+        element: <Payment></Payment>,
       },
       {
         path: "login",
