@@ -42,6 +42,15 @@ const useUsers = () => {
     },
   });
 
+  // Payments meal query
+  const { data: adminMeals } = useQuery({
+    queryKey: ["adminMeals", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/meals?admin_email=${user.email}`);
+      return res.data;
+    },
+  });
+
   const userProfile = users?.[0];
 
   return {
@@ -50,6 +59,7 @@ const useUsers = () => {
     requests,
     payments,
     reviews,
+    adminMeals,
     refetch,
     reviewRefetch,
   };

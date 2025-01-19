@@ -16,6 +16,7 @@ import AllMeals from "../Pages/AllMeals/AllMeals";
 import RequestedMeals from "../Pages/Dashboard/User/RequestedMeals";
 import MyReviews from "../Pages/Dashboard/User/MyReviews";
 import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory";
+import AdminAllMeals from "../Pages/Dashboard/Admin/AdminAllMeals";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -73,6 +74,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AddMeals></AddMeals>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "adminAllMeals",
+        element: (
+          <AdminRoute>
+            <AdminAllMeals></AdminAllMeals>
           </AdminRoute>
         ),
       },

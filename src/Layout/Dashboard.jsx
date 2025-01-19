@@ -43,7 +43,7 @@ const Dashboard = () => {
               </li>
 
               <li>
-                <NavLink to="/dashboard/addItems">
+                <NavLink to="/dashboard/adminAllMeals">
                   <FaUtensilSpoon></FaUtensilSpoon>
                   All Meals
                 </NavLink>
