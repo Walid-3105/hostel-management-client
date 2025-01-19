@@ -12,6 +12,7 @@ import AdminRoute from "./AdminRoute";
 import MealDetails from "../Pages/Home/Meals/MealDetails";
 import CheckoutForm from "../Pages/Home/Payment/CheckoutForm";
 import Payment from "../Pages/Home/Payment/Payment";
+import AllMeals from "../Pages/AllMeals/AllMeals";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "register",
         element: <Register></Register>,
+      },
+      {
+        path: "allMeals",
+        element: <AllMeals></AllMeals>,
       },
     ],
   },
