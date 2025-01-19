@@ -71,13 +71,13 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/reservation">
+                <NavLink to="/dashboard/requestedMeals">
                   <VscGitPullRequestCreate />
                   Requested Meals
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/cart">
+                <NavLink to="/dashboard/myReviews">
                   <VscPreview />
                   My Reviews
                 </NavLink>

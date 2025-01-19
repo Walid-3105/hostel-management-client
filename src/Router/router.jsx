@@ -13,6 +13,9 @@ import MealDetails from "../Pages/Home/Meals/MealDetails";
 import CheckoutForm from "../Pages/Home/Payment/CheckoutForm";
 import Payment from "../Pages/Home/Payment/Payment";
 import AllMeals from "../Pages/AllMeals/AllMeals";
+import RequestedMeals from "../Pages/Dashboard/User/RequestedMeals";
+import MyReviews from "../Pages/Dashboard/User/MyReviews";
+import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -77,6 +80,18 @@ export const router = createBrowserRouter([
       {
         path: "myProfile",
         element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "requestedMeals",
+        element: <RequestedMeals></RequestedMeals>,
+      },
+      {
+        path: "myReviews",
+        element: <MyReviews></MyReviews>,
+      },
+      {
+        path: "paymentHistory",
+        element: <PaymentHistory></PaymentHistory>,
       },
     ],
   },
