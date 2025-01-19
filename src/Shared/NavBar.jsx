@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
+import useUsers from "../Hooks/useUsers";
 const NavBar = () => {
   const { user, logOut } = useAuth();
+  const { userProfile } = useUsers();
   const [isHovering, setIsHovering] = useState(false);
   const profile = user?.photoURL;
   const displayName = user?.displayName;
@@ -78,7 +80,14 @@ const NavBar = () => {
                     {displayName || "Anonymous User"}
                   </p>
                   {/* todo : make dashboard route ternary if user is admin opening route is adminProfile else User Profile */}
-                  <Link to={"/dashboard/"} className="btn btn-sm mb-1">
+                  <Link
+                    to={
+                      userProfile?.role === "admin"
+                        ? "/dashboard/adminProfile"
+                        : "/dashboard/myProfile"
+                    }
+                    className="btn btn-sm mb-1"
+                  >
                     Dashboard
                   </Link>
                   <button
