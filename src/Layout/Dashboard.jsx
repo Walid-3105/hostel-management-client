@@ -50,13 +50,13 @@ const Dashboard = () => {
               </li>
 
               <li>
-                <NavLink to="/dashboard/users">
+                <NavLink to="/dashboard/serveMeals">
                   <GiHotMeal />
                   Serve Meals
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/users">
+                <NavLink to="/dashboard/upComingMeals">
                   <MdOutlineUpcoming />
                   Upcoming Meals
                 </NavLink>
