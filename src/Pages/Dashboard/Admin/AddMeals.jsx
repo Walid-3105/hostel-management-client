@@ -55,52 +55,64 @@ const AddMeals = () => {
     }
   };
   return (
-    <div>
-      <h3 className="text-3xl">Add Meals Here</h3>
+    <div className="p-5">
+      <h3 className="text-2xl font-semibold mb-2">Add Meals Here</h3>
       <div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="space-y-4 p-4 bg-white shadow-md rounded-md"
+          className="space-y-4  p-4 bg-white shadow-md rounded-md"
         >
-          {/*meal title */}
-          <input
-            {...register("title", { required: true })}
-            placeholder="Meal Title"
-            className="input input-bordered w-full"
-          />
-          {errors.title && (
-            <span className="text-red-500">Title is required</span>
-          )}
-          {/*meal category */}
-          <div className="form-control w-full my-6">
-            <label className="label">
-              <span className="label-text">Category*</span>
-            </label>
-            <select
-              defaultValue="default"
-              {...register("category", { required: true })}
-              className="select select-bordered w-full"
-            >
-              <option disabled value="default">
-                Select a category
-              </option>
-              <option value="breakfast">Breakfast</option>
-              <option value="lunch">Lunch</option>
-              <option value="dinner">Dinner</option>
-            </select>
-            {errors.category && (
-              <span className="text-red-500">Category is required</span>
+          <div className="flex gap-5">
+            {/*meal title */}
+            <input
+              {...register("title", { required: true })}
+              placeholder="Meal Title"
+              className="input input-bordered w-full"
+            />
+            {errors.title && (
+              <span className="text-red-500">Title is required</span>
+            )}
+            {/*meal category */}
+            <div className="form-control w-full">
+              <select
+                defaultValue="default"
+                {...register("category", { required: true })}
+                className="select select-bordered w-full"
+              >
+                <option disabled value="default">
+                  Select a category
+                </option>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+              </select>
+              {errors.category && (
+                <span className="text-red-500">Category is required</span>
+              )}
+            </div>
+          </div>
+          <div className="flex gap-5">
+            {/*meals image */}
+            <input
+              type="file"
+              {...register("image", { required: true })}
+              className="file-input w-full border"
+            />
+            {errors.image && (
+              <span className="text-red-500">Image is required</span>
+            )}
+            {/* meals price */}
+            <input
+              type="number"
+              {...register("price", { required: true })}
+              placeholder="Price"
+              className="input input-bordered w-full"
+            />
+            {errors.price && (
+              <span className="text-red-500">Price is required</span>
             )}
           </div>
-          {/*meals image */}
-          <input
-            type="file"
-            {...register("image", { required: true })}
-            className="file-input w-full"
-          />
-          {errors.image && (
-            <span className="text-red-500">Image is required</span>
-          )}
+
           {/* Meals ingredients */}
 
           <input
@@ -121,16 +133,7 @@ const AddMeals = () => {
           {errors.description && (
             <span className="text-red-500">Description is required</span>
           )}
-          {/* meals price */}
-          <input
-            type="number"
-            {...register("price", { required: true })}
-            placeholder="Price"
-            className="input input-bordered w-full"
-          />
-          {errors.price && (
-            <span className="text-red-500">Price is required</span>
-          )}
+
           {/* admin name */}
           <input
             type="text"
@@ -138,6 +141,7 @@ const AddMeals = () => {
             readOnly
             className="input input-bordered w-full bg-gray-200"
           />
+
           {/* admin email */}
           <input
             type="email"

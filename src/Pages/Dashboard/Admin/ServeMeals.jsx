@@ -15,7 +15,7 @@ const ServeMeals = () => {
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(search);
-      setCurrentPage(0); // Reset to first page on new search
+      setCurrentPage(0);
     }, 500);
 
     return () => clearTimeout(handler);
@@ -61,7 +61,6 @@ const ServeMeals = () => {
     });
   };
 
-  // Pagination logic
   const offset = currentPage * itemsPerPage;
   const currentMeals = requestedMeals.slice(offset, offset + itemsPerPage);
   const pageCount = Math.ceil(requestedMeals.length / itemsPerPage);
@@ -112,7 +111,7 @@ const ServeMeals = () => {
                   </td>
                   <td className="border px-4 py-2">
                     <button
-                      className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 disabled:opacity-50"
+                      className="bg-blue-800 text-white px-3 py-1 rounded hover:bg-blue-600 disabled:opacity-50"
                       onClick={() => handleServe(meal._id)}
                       disabled={meal.status === "delivered"}
                     >
@@ -135,7 +134,6 @@ const ServeMeals = () => {
         </table>
       </div>
 
-      {/* Pagination Component */}
       {requestedMeals.length > itemsPerPage && (
         <div className="flex justify-center items-center mt-8 min-h-[50px]">
           <ReactPaginate

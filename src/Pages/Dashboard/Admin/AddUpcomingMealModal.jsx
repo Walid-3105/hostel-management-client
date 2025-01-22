@@ -126,7 +126,7 @@ const AddUpcomingMealModal = ({ closeModal, refetch }) => {
             >
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn bg-blue-800">
               Add Meal
             </button>
           </div>

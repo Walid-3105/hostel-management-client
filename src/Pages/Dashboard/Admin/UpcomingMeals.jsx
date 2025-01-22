@@ -64,7 +64,7 @@ const UpcomingMeals = () => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold">Upcoming Meals</h2>
         <button
-          className="btn btn-primary"
+          className="btn bg-blue-800 text-white"
           onClick={() => setIsModalOpen(true)}
         >
           Add Upcoming Meal

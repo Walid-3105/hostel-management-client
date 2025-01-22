@@ -6,6 +6,7 @@ import useMeals from "../../../Hooks/useMeals";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import ReactPaginate from "react-paginate";
+import { FaTrashAlt } from "react-icons/fa";
 
 const AdminAllMeals = () => {
   const [meals, , refetch] = useMeals();
@@ -77,8 +78,8 @@ const AdminAllMeals = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4">All Meals</h2>
+    <div className="container mx-auto p-5">
+      <h2 className="text-2xl font-semibold mb-4">All Meals</h2>
 
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-300">
@@ -110,24 +111,30 @@ const AdminAllMeals = () => {
                 <td className="border border-gray-300 px-4 py-2">
                   {meal.admin_name || "Unknown"}
                 </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <Link to={`/meal/${meal._id}`}>
-                    <button className="bg-blue-500 text-white px-3 py-1 rounded mr-2">
-                      View
+                <td className="border border-gray-300 px-4 py-2 w-[250px]">
+                  <td>
+                    <Link to={`/meal/${meal._id}`}>
+                      <button className="bg-blue-800 text-white px-3 py-1 rounded mr-5">
+                        View
+                      </button>
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleUpdateMeal(meal._id)}
+                      className="bg-green-500 text-white px-3 py-1 rounded mr-5"
+                    >
+                      Update
                     </button>
-                  </Link>
-                  <button
-                    onClick={() => handleUpdateMeal(meal._id)}
-                    className="bg-green-500 text-white px-3 py-1 rounded mr-2"
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() => handleDeleteMeal(meal._id)}
-                    className="bg-red-500 text-white px-3 py-1 rounded"
-                  >
-                    Delete
-                  </button>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDeleteMeal(meal._id)}
+                      className="text-red-600 hover:text-blue-600"
+                    >
+                      <FaTrashAlt size={18} />
+                    </button>
+                  </td>
                 </td>
               </tr>
             ))}
