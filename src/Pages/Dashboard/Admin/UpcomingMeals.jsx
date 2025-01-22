@@ -3,24 +3,34 @@ import React, { useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import AddUpcomingMealModal from "./AddUpcomingMealModal";
+import ReactPaginate from "react-paginate";
 
 const UpcomingMeals = () => {
   const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const mealsPerPage = 10;
 
-  // Fetch upcoming meals sorted by likes
   const { data: upcomingMeals = [], refetch } = useQuery({
     queryKey: ["upcomingMeals"],
     queryFn: async () => {
       const res = await axiosSecure.get("/upcomingMeals");
-      return res.data.sort((a, b) => b.likes - a.likes); // Sort by likes (highest first)
+      return res.data.sort((a, b) => b.likes - a.likes);
     },
   });
 
-  // Handle publishing a meal
+  // Calculate pagination
+  const offset = currentPage * mealsPerPage;
+  const paginatedMeals = upcomingMeals.slice(offset, offset + mealsPerPage);
+  const pageCount = Math.ceil(upcomingMeals.length / mealsPerPage);
+
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
   const handlePublish = async (meal) => {
     try {
-      const publishMeal = {
+      const publishData = {
         title: meal.title,
         category: meal.category,
         image: meal.image,
@@ -35,13 +45,13 @@ const UpcomingMeals = () => {
       };
 
       // Add to the main meals collection
-      const res = await axiosSecure.post("/meal", publishMeal);
+      const res = await axiosSecure.post("/meal", publishData);
 
       if (res.data.insertedId) {
         // Delete from upcoming meals after successful publish
         await axiosSecure.delete(`/upcomingMeals/${meal._id}`);
         toast.success(`${meal.title} published successfully!`);
-        refetch(); // Refresh the data
+        refetch();
       }
     } catch (error) {
       toast.error("Failed to publish the meal.");
@@ -72,8 +82,8 @@ const UpcomingMeals = () => {
             </tr>
           </thead>
           <tbody>
-            {upcomingMeals.length > 0 ? (
-              upcomingMeals.map((meal) => (
+            {paginatedMeals.length > 0 ? (
+              paginatedMeals.map((meal) => (
                 <tr key={meal._id} className="text-center">
                   <td className="border px-4 py-2">{meal.title}</td>
                   <td className="border px-4 py-2">{meal.category}</td>
@@ -100,6 +110,28 @@ const UpcomingMeals = () => {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center items-center mt-8 min-h-[50px]">
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={"..."}
+          pageCount={pageCount}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageChange}
+          containerClassName={"pagination flex space-x-2"}
+          previousLinkClassName={
+            "px-4 py-2 border rounded bg-gray-200 hover:bg-gray-300"
+          }
+          nextLinkClassName={
+            "px-4 py-2 border rounded bg-gray-200 hover:bg-gray-300"
+          }
+          disabledClassName={"opacity-50 cursor-not-allowed "}
+          activeClassName={"bg-blue-500 text-white rounded-full px-2"}
+        />
       </div>
 
       {/* Add Upcoming Meal Modal */}

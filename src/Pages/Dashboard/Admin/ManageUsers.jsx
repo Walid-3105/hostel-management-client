@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
+import ReactPaginate from "react-paginate";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(0);
+  const usersPerPage = 10;
+
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -31,7 +35,7 @@ const ManageUsers = () => {
             Swal.fire({
               position: "top-center",
               icon: "success",
-              title: "Your work has been saved",
+              title: "User promoted to Admin",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -57,7 +61,7 @@ const ManageUsers = () => {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "User has been removed.",
               icon: "success",
             });
           }
@@ -66,29 +70,37 @@ const ManageUsers = () => {
     });
   };
 
+  // Pagination logic
+  const pageCount = Math.ceil(users.length / usersPerPage);
+  const offset = currentPage * usersPerPage;
+  const paginatedUsers = users.slice(offset, offset + usersPerPage);
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
   return (
     <div>
       <div className="flex justify-evenly my-4">
         <h2 className="text-3xl">All Users</h2>
-        <h2 className="text-3xl">Total Users:{users.length}</h2>
+        <h2 className="text-3xl">Total Users: {users.length}</h2>
       </div>
       <div>
         <div className="overflow-x-auto">
           <table className="table table-zebra">
-            {/* head */}
             <thead>
               <tr>
-                <th></th>
+                <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>User</th>
+                <th>Role</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((user, idx) => (
+              {paginatedUsers.map((user, idx) => (
                 <tr key={user._id}>
-                  <th>{idx + 1}</th>
+                  <th>{offset + idx + 1}</th>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
@@ -99,7 +111,7 @@ const ManageUsers = () => {
                         onClick={() => handleMakeAdmin(user)}
                         className="text-white bg-orange-500 p-2 hover:text-red-700"
                       >
-                        <FaUsers size={18}></FaUsers>
+                        <FaUsers size={18} />
                       </button>
                     )}
                   </td>
@@ -108,13 +120,31 @@ const ManageUsers = () => {
                       onClick={() => handleDeleteUser(user)}
                       className="text-red-600 hover:text-blue-700"
                     >
-                      <FaTrashAlt size={18}></FaTrashAlt>
+                      <FaTrashAlt size={18} />
                     </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+        {/* Pagination */}
+        <div className="flex justify-center mt-4">
+          <ReactPaginate
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination flex space-x-2"}
+            activeClassName={"bg-blue-500 text-white px-3 py-1 rounded"}
+            pageClassName={"px-3 py-1 border rounded hover:bg-gray-200"}
+            previousClassName={"px-3 py-1 border rounded hover:bg-gray-200"}
+            nextClassName={"px-3 py-1 border rounded hover:bg-gray-200"}
+            disabledClassName={"opacity-50 cursor-not-allowed"}
+          />
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactPaginate from "react-paginate";
 import useUsers from "../../../Hooks/useUsers";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
@@ -14,6 +15,17 @@ const MyReviews = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedReview, setSelectedReview] = useState(null);
   const [updatedReviewText, setUpdatedReviewText] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+  const reviewsPerPage = 5;
+
+  // Pagination Logic
+  const offset = currentPage * reviewsPerPage;
+  const currentReviews = reviews.slice(offset, offset + reviewsPerPage);
+  const pageCount = Math.ceil(reviews.length / reviewsPerPage);
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
   // Open Edit Modal
   const handleEditReview = (review) => {
@@ -36,7 +48,7 @@ const MyReviews = () => {
     }
   };
 
-  // Custom Toast for Delete Confirmation
+  // Confirm Delete Toast
   const confirmDeleteToast = (id) => {
     toast(
       (t) => (
@@ -88,8 +100,8 @@ const MyReviews = () => {
             </tr>
           </thead>
           <tbody>
-            {reviews?.length > 0 ? (
-              reviews.map((review) => (
+            {currentReviews.length > 0 ? (
+              currentReviews.map((review) => (
                 <tr key={review._id} className="border-b hover:bg-gray-50">
                   <td className="p-3">{review.title}</td>
                   <td className="p-3">{review.likes}</td>
@@ -126,7 +138,20 @@ const MyReviews = () => {
           </tbody>
         </table>
       </div>
-
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-5">
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination flex justify-center mt-4"}
+          previousLinkClassName={"px-3 py-1 bg-gray-300 rounded mr-2"}
+          nextLinkClassName={"px-3 py-1 bg-gray-300 rounded ml-2"}
+          disabledClassName={"opacity-50 cursor-not-allowed"}
+          activeClassName={"bg-blue-500 text-white px-2 rounded-full"}
+        />
+      </div>
       {/* Edit Review Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">

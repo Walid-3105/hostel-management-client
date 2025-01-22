@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import useUsers from "../../../Hooks/useUsers";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import ReactPaginate from "react-paginate";
 
 const RequestedMeals = () => {
   const { requests, refetch } = useUsers();
   const axiosSecure = useAxiosSecure();
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
   const handleCancel = async (mealId) => {
     const res = await axiosSecure.delete(`/request/${mealId}`);
     refetch();
-    toast.success(`${requests[0].title} cancel from your Request`);
+    toast.success(`Meal request canceled successfully`);
   };
+
+  const offset = currentPage * itemsPerPage;
+  const currentMeals = requests.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(requests.length / itemsPerPage);
 
   return (
     <div className="p-4">
@@ -22,6 +34,7 @@ const RequestedMeals = () => {
           <table className="table-auto w-full border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-200">
+                <th className="border border-gray-300 px-4 py-2"></th>
                 <th className="border border-gray-300 px-4 py-2">Meal Title</th>
                 <th className="border border-gray-300 px-4 py-2">Likes</th>
                 <th className="border border-gray-300 px-4 py-2">Reviews</th>
@@ -30,8 +43,11 @@ const RequestedMeals = () => {
               </tr>
             </thead>
             <tbody>
-              {requests.map((meal) => (
+              {currentMeals.map((meal, index) => (
                 <tr key={meal._id} className="text-center">
+                  <td className="border border-gray-300 px-4 py-2">
+                    {index + 1}
+                  </td>
                   <td className="border border-gray-300 px-4 py-2">
                     {meal.title}
                   </td>
@@ -66,6 +82,18 @@ const RequestedMeals = () => {
               ))}
             </tbody>
           </table>
+
+          <ReactPaginate
+            previousLabel={"← Previous"}
+            nextLabel={"Next →"}
+            pageCount={pageCount}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination flex justify-center mt-4"}
+            previousLinkClassName={"px-3 py-1 bg-gray-300 rounded mr-2"}
+            nextLinkClassName={"px-3 py-1 bg-gray-300 rounded ml-2"}
+            disabledClassName={"opacity-50 cursor-not-allowed"}
+            activeClassName={"bg-blue-500 text-white px-2 rounded-full"}
+          />
         </div>
       ) : (
         <p className="text-gray-500">No requested meals found.</p>

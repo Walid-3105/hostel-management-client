@@ -42,7 +42,6 @@ const AddMeals = () => {
         postTime: new Date().toISOString(),
         admin_name: user.displayName,
         admin_email: user.email,
-        rating: 0,
         likes: 0,
         reviews_count: 0,
       };

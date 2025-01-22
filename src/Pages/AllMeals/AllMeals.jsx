@@ -12,8 +12,8 @@ const AllMeals = () => {
   const [meals, setMeals] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["meals", search, category, priceRange],
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ["meal", search, category, priceRange],
     queryFn: async () => {
       const res = await axiosPublic.get(
         `/meal?search=${search}&category=${category}&price=${priceRange}`
@@ -41,12 +41,13 @@ const AllMeals = () => {
 
   const filteredMeals = meals.filter((meal) => {
     const matchesSearch =
-      meal.title.toLowerCase().includes(search.toLowerCase()) ||
-      meal.category.toLowerCase().includes(search.toLowerCase());
+      (meal.title && meal.title.toLowerCase().includes(search.toLowerCase())) ||
+      (meal.category &&
+        meal.category.toLowerCase().includes(search.toLowerCase()));
     const matchesCategory = category
       ? meal.category.toLowerCase() === category.toLowerCase()
       : true;
-    const matchesPrice = meal.price <= priceRange;
+    const matchesPrice = meal.price && parseFloat(meal.price) <= priceRange;
 
     return matchesSearch && matchesCategory && matchesPrice;
   });

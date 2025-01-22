@@ -5,13 +5,23 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import useMeals from "../../../Hooks/useMeals";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import ReactPaginate from "react-paginate";
 
 const AdminAllMeals = () => {
   const [meals, , refetch] = useMeals();
   const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMeal, setSelectedMeal] = useState(null);
-  console.log(meals);
+
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
+  const offset = currentPage * itemsPerPage;
+  const currentMeals = meals.slice(offset, offset + itemsPerPage);
+
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
   const handleDeleteMeal = (mealId) => {
     confirmAlert({
@@ -83,10 +93,10 @@ const AdminAllMeals = () => {
             </tr>
           </thead>
           <tbody>
-            {meals?.map((meal, index) => (
+            {currentMeals.map((meal, index) => (
               <tr key={meal._id} className="text-center">
                 <td className="border border-gray-300 px-4 py-2">
-                  {index + 1}
+                  {offset + index + 1}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   {meal.title}
@@ -125,7 +135,29 @@ const AdminAllMeals = () => {
         </table>
       </div>
 
-      {/* modal */}
+      {/* Pagination */}
+      <div className="flex justify-center items-center mt-8 min-h-[50px]">
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={"..."}
+          pageCount={Math.ceil(meals.length / itemsPerPage)}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageChange}
+          containerClassName={"pagination flex space-x-2"}
+          previousLinkClassName={
+            "px-4 py-2 border rounded bg-gray-200 hover:bg-gray-300"
+          }
+          nextLinkClassName={
+            "px-4 py-2 border rounded bg-gray-200 hover:bg-gray-300"
+          }
+          disabledClassName={"opacity-50 cursor-not-allowed "}
+          activeClassName={"bg-blue-500 text-white rounded-full px-2"}
+        />
+      </div>
+
+      {/* Update Meal Modal */}
       {selectedMeal && isModalOpen && (
         <div className="modal modal-open">
           <div className="modal-box">
@@ -169,48 +201,6 @@ const AdminAllMeals = () => {
                   className="textarea textarea-bordered w-full"
                 />
               </div>
-              <div>
-                <label htmlFor="price" className="block">
-                  Price
-                </label>
-                <input
-                  type="number"
-                  id="price"
-                  name="price"
-                  value={selectedMeal?.price || ""}
-                  onChange={(e) =>
-                    setSelectedMeal({ ...selectedMeal, price: e.target.value })
-                  }
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label htmlFor="admin_name" className="block">
-                  Distributor Name
-                </label>
-                <input
-                  type="text"
-                  id="admin_name"
-                  name="admin_name"
-                  value={selectedMeal?.admin_name || ""}
-                  readOnly
-                  className="input input-bordered w-full"
-                />
-              </div>
-              <div>
-                <label htmlFor="category" className="block">
-                  Category
-                </label>
-                <input
-                  type="text"
-                  id="category"
-                  name="category"
-                  value={selectedMeal?.category || ""}
-                  readOnly
-                  className="input input-bordered w-full"
-                />
-              </div>
-
               <div className="flex justify-end space-x-2 mt-4">
                 <button
                   type="button"
