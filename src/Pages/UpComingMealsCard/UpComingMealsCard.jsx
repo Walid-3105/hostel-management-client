@@ -34,9 +34,10 @@ const UpComingMealsCard = () => {
 
   // Mutation to update likes
   const likeMutation = useMutation({
-    mutationFn: async ({ mealId, newLikes }) => {
+    mutationFn: async ({ mealId, newLikes, updatedLikedBy }) => {
       const res = await axiosSecure.patch(`/upcomingMeals/${mealId}`, {
         likes: newLikes,
+        likedBy: updatedLikedBy,
       });
       return res.data.likes;
     },
@@ -64,8 +65,17 @@ const UpComingMealsCard = () => {
       return;
     }
 
+    const likedBy = Array.isArray(meal.likedBy) ? meal.likedBy : [];
+    console.log(likedBy);
+
+    if (likedBy.includes(user.email)) {
+      toast.error("you have already liked this meal");
+      return;
+    }
+
     const newLikes = meal.likes + 1;
-    likeMutation.mutate({ mealId: meal._id, newLikes });
+    const updatedLikedBy = [...likedBy, user.email];
+    likeMutation.mutate({ mealId: meal._id, newLikes, updatedLikedBy });
   };
 
   return (

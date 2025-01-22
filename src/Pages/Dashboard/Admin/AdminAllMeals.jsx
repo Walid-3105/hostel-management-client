@@ -11,6 +11,7 @@ const AdminAllMeals = () => {
   const axiosSecure = useAxiosSecure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMeal, setSelectedMeal] = useState(null);
+  console.log(meals);
 
   const handleDeleteMeal = (mealId) => {
     confirmAlert({

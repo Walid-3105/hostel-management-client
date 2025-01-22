@@ -37,6 +37,7 @@ const MealDetails = () => {
       return res.data;
     },
   });
+  console.log(meal);
 
   // State for likes (sync with fetched data)
   const [like, setLike] = useState(0);
