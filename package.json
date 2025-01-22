@@ -29,8 +29,10 @@
     "react-paginate": "^8.2.0",
     "react-router-dom": "^7.1.1",
     "react-tabs": "^6.1.0",
+    "react-type-animation": "^3.2.0",
     "sort-by": "^1.2.0",
-    "sweetalert2": "^11.15.10"
+    "sweetalert2": "^11.15.10",
+    "swiper": "^11.2.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

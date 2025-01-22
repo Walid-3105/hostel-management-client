@@ -5,7 +5,7 @@ const MealCard = ({ item }) => {
   const { _id, title, image, rating, price } = item || {};
 
   return (
-    <div className="card w-72 bg-white shadow-lg rounded-md overflow-hidden">
+    <div className="card w-full  lg:w-72 bg-white shadow-lg rounded-md overflow-hidden">
       <img src={image} alt={title} className="w-full h-40 object-cover" />
       <div className="p-4">
         <h2 className="text-lg font-semibold">{title}</h2>

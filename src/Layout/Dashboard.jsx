@@ -19,7 +19,8 @@ const Dashboard = () => {
 
   return (
     <div className="flex">
-      <div className="min-h-screen w-64 bg-orange-400">
+      <div className="min-h-screen w-64 bg-[#e0dfdfd2]">
+        <h3 className="p-4 text-xl font-bold">Lodge Ease</h3>
         <ul className="menu p-4">
           {isAdmin ? (
             <>
@@ -48,7 +49,6 @@ const Dashboard = () => {
                   All Meals
                 </NavLink>
               </li>
-
               <li>
                 <NavLink to="/dashboard/serveMeals">
                   <GiHotMeal />
@@ -97,12 +97,6 @@ const Dashboard = () => {
             <NavLink to="/">
               <FaHome></FaHome>
               Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/order/contact">
-              <FaEnvelope></FaEnvelope>
-              Contact
             </NavLink>
           </li>
         </ul>

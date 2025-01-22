@@ -81,16 +81,16 @@ const ManageUsers = () => {
 
   return (
     <div>
-      <div className="flex justify-evenly my-4">
-        <h2 className="text-3xl">All Users</h2>
+      <div className="flex justify-between my-4">
+        <h2 className="text-3xl">All Users Here</h2>
         <h2 className="text-3xl">Total Users: {users.length}</h2>
       </div>
       <div>
         <div className="overflow-x-auto">
-          <table className="table table-zebra">
+          <table className="table table-zebra border">
             <thead>
               <tr>
-                <th>#</th>
+                <th></th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -109,9 +109,9 @@ const ManageUsers = () => {
                     ) : (
                       <button
                         onClick={() => handleMakeAdmin(user)}
-                        className="text-white bg-orange-500 p-2 hover:text-red-700"
+                        className="text-blue p-2 hover:text-red-700"
                       >
-                        <FaUsers size={18} />
+                        <FaUsers size={20} />
                       </button>
                     )}
                   </td>

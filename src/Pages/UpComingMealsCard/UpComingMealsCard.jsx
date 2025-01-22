@@ -126,13 +126,13 @@ const UpComingMealsCard = () => {
         publishMeal(meal);
       }
     });
-  }, [upcomingMeals]); // Runs whenever upcomingMeals data changes
+  }, [upcomingMeals]);
 
   return (
-    <div className="p-5">
-      <h2 className="text-2xl font-semibold mb-4">Upcoming Meals</h2>
+    <div className="pt-20 w-11/12 mx-auto">
+      <h2 className="text-3xl font-bold mb-4 mt-4">Upcoming Delicacies</h2>
 
-      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
+      <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 mt-10">
         {upcomingMeals.length > 0 ? (
           upcomingMeals.map((meal) => (
             <div
@@ -144,13 +144,15 @@ const UpComingMealsCard = () => {
                 alt={meal.title}
                 className="w-full h-40 object-cover rounded-md"
               />
-              <h3 className="text-lg font-semibold mt-2">{meal.title}</h3>
-              <p className="text-sm text-gray-500">{meal.category}</p>
-              <p className="text-sm mt-1">{meal.description}</p>
+              <div className="flex-grow flex flex-col items-center">
+                <h3 className="text-lg font-semibold mt-2">{meal.title}</h3>
+                <p className="text-sm text-gray-500">{meal.category}</p>
+                <p className="text-sm mt-1">{meal.description}</p>
+              </div>
 
-              <div className="flex items-center justify-between w-full mt-3">
+              <div className="mt-auto flex items-center justify-between w-full ">
                 <button
-                  className="flex items-center gap-1 bg-blue-500 text-white px-4 py-1 rounded-md"
+                  className="flex mt-3 items-center gap-1 bg-blue-500 text-white px-4 py-1 rounded-md"
                   onClick={() => handleLike(meal)}
                   disabled={likeMutation.isLoading}
                 >

@@ -35,7 +35,7 @@ const AllMeals = () => {
 
   useEffect(() => {
     if (data && data.length > 0) {
-      setMeals(data.slice(0, 6)); // Load first 6 meals initially
+      setMeals(data.slice(0, 8)); // Load first 6 meals initially
     }
   }, [data]);
 
@@ -55,30 +55,34 @@ const AllMeals = () => {
   const noMealsFound = filteredMeals.length === 0 && !isLoading && !isError;
 
   return (
-    <div className="min-h-screen pt-20">
-      <div className="flex justify-center mb-4">
-        {/* search */}
-        <input
-          type="text"
-          placeholder="Search meals..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="input input-bordered w-full max-w-md"
-        />
+    <div className="min-h-screen pt-20 w-11/12 mx-auto">
+      <div className="flex flex-col lg:flex-row md:flex-row justify-between mt-4">
+        <h3 className="text-2xl marker:lg:text-3xl font-bold">
+          The Ultimate Meal Selection
+        </h3>
+        <div className="flex justify-center mb-4 border rounded-lg mt-3 lg:mt-0">
+          {/* search */}
+          <input
+            type="text"
+            placeholder="Search meals..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="input input-bordered w-full max-w-md"
+          />
+          {/* category */}
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="select select-bordered w-full max-w-xs"
+          >
+            <option value="">All Categories</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+          </select>
+        </div>
       </div>
-      <div className="flex justify-center mb-4">
-        {/* category */}
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="select select-bordered w-full max-w-xs"
-        >
-          <option value="">All Categories</option>
-          <option value="breakfast">Breakfast</option>
-          <option value="lunch">Lunch</option>
-          <option value="dinner">Dinner</option>
-        </select>
-      </div>
+
       {/* price */}
       <div className="flex flex-col items-center mb-4">
         <label className="font-semibold">Max Price: ${priceRange}</label>
@@ -103,14 +107,14 @@ const AllMeals = () => {
         next={loadMoreMeals}
         hasMore={hasMore}
         loader={<p>Loading more meals...</p>}
-        endMessage={<p>No more meals to load</p>}
+        endMessage={<p className="mt-2">No more meals to load</p>}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredMeals.map((meal) => (
             <div
               key={meal._id}
               meal={meal}
-              className="card w-72 bg-white shadow-lg rounded-md overflow-hidden"
+              className="card w-full lg:w-72 bg-white shadow-lg rounded-md overflow-hidden"
             >
               <img
                 src={meal.image}

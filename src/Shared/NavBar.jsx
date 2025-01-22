@@ -36,7 +36,7 @@ const NavBar = () => {
   );
   return (
     <div>
-      <div className="navbar bg-base-100 fixed z-10 mx-auto right-0 px-10">
+      <div className="navbar bg-base-200 fixed z-10 mx-auto right-0 top-0 px-4 lg:px-10">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -75,7 +75,7 @@ const NavBar = () => {
               onMouseLeave={() => setIsHovering(false)}
             >
               {isHovering && (
-                <div className="absolute p-2 w-36 rounded-md bg-gray-400 shadow-md top-10 -left-20 z-10">
+                <div className="absolute p-2 w-36 rounded-md bg-gray-400 shadow-md top-10 -left-16 z-10">
                   <p className="text-sm mb-1 text-white">
                     {displayName || "Anonymous User"}
                   </p>

@@ -17,8 +17,8 @@ const MealsCategory = () => {
   const dinner = meals.filter((item) => item.category === "dinner");
 
   return (
-    <div className="my-14">
-      <h3 className="text-3xl">Flavors for Every Craving</h3>
+    <div className="my-14 w-11/12 mx-auto">
+      <h3 className="text-3xl font-bold">Flavors for Every Craving</h3>
       <Tabs
         className="mt-5 items-center text-center"
         selectedIndex={tabIndex}
