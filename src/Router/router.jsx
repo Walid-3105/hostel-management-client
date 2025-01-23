@@ -21,6 +21,7 @@ import ServeMeals from "../Pages/Dashboard/Admin/ServeMeals";
 import UpcomingMeals from "../Pages/Dashboard/Admin/UpcomingMeals";
 import UpComingMealsCard from "../Pages/UpComingMealsCard/UpComingMealsCard";
 import ErrorPage from "../Shared/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -59,7 +60,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       // Admin
       {
@@ -113,19 +118,35 @@ export const router = createBrowserRouter([
       // User
       {
         path: "myProfile",
-        element: <MyProfile></MyProfile>,
+        element: (
+          <PrivateRoute>
+            <MyProfile></MyProfile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "requestedMeals",
-        element: <RequestedMeals></RequestedMeals>,
+        element: (
+          <PrivateRoute>
+            <RequestedMeals></RequestedMeals>
+          </PrivateRoute>
+        ),
       },
       {
         path: "myReviews",
-        element: <MyReviews></MyReviews>,
+        element: (
+          <PrivateRoute>
+            <MyReviews></MyReviews>
+          </PrivateRoute>
+        ),
       },
       {
         path: "paymentHistory",
-        element: <PaymentHistory></PaymentHistory>,
+        element: (
+          <PrivateRoute>
+            <PaymentHistory></PaymentHistory>
+          </PrivateRoute>
+        ),
       },
     ],
   },

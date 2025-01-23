@@ -35,7 +35,7 @@ const Register = () => {
         badge: "Bronze",
       };
       axiosPublic.post("/users", userInfo).then((res) => {
-        console.log("user added successfully");
+        // console.log("user added successfully");
         navigate(location?.state ? location.state : "/");
       });
 

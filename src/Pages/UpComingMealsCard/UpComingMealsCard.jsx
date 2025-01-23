@@ -75,7 +75,7 @@ const UpComingMealsCard = () => {
     }
 
     const likedBy = Array.isArray(meal.likedBy) ? meal.likedBy : [];
-    console.log(likedBy);
+    // console.log(likedBy);
 
     if (likedBy.includes(user.email)) {
       toast.error("you have already liked this meal");

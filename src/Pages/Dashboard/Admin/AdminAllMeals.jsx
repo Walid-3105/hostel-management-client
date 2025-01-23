@@ -61,7 +61,9 @@ const AdminAllMeals = () => {
         },
         {
           label: "Cancel",
-          onClick: () => console.log("Delete canceled"),
+          onClick: () => {
+            toast.alert("Delete canceled");
+          },
         },
       ],
     });

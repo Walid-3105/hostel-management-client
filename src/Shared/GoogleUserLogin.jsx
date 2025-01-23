@@ -22,14 +22,14 @@ const GoogleUserLogin = () => {
           badge: "Bronze",
         };
         axiosPublic.post("/users", userInfo).then((res) => {
-          console.log("user added", res.data);
+          // console.log("user added", res.data);
           navigate(location?.state ? location.state : "/");
         });
-        console.log(res.user);
+        // console.log(res.user);
       })
       .catch((err) => {
         setError(err.message);
-        console.log(err.message);
+        // console.log(err.message);
       });
   };
   return (

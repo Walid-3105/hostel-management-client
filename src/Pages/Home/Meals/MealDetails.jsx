@@ -99,7 +99,7 @@ const MealDetails = () => {
         };
         const res = await axiosSecure.post("/request", requestItem);
         toast.success("Meal Request added");
-        console.log(res.data);
+        // console.log(res.data);
       } else {
         toast.error(
           "You need to purchase a Silver, Gold, or Platinum package to request a meal."

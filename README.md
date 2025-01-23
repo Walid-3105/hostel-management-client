@@ -74,6 +74,10 @@ This is a fully functional **Hostel Management System** built with the **MERN St
 
 ---
 
+9. **Admin**:
+   - Admin Email: saawalid@gmail.com,admin@gmail.com,
+   - Password: Wa@123
+
 ## Environment Variables
 
 - `MONGO_URI`: MongoDB connection string.

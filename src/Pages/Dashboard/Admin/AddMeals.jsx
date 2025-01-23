@@ -22,7 +22,7 @@ const AddMeals = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
 
     // image upload
     const imageFile = { image: data.image[0] };
@@ -47,7 +47,7 @@ const AddMeals = () => {
       };
 
       const mealRes = await axiosSecure.post("/meal", mealData);
-      console.log(mealRes.data);
+      // console.log(mealRes.data);
       if (mealRes.data.insertedId) {
         toast.success(`${data.title} added Successfully`);
         reset();
