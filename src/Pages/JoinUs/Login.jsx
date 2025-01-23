@@ -4,6 +4,7 @@ import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
 import GoogleUserLogin from "../../Shared/GoogleUserLogin";
+import WelcomeBanner from "../../Shared/WelcomeBanner";
 
 const Login = () => {
   const { userLogin, signInWithGoogle } = useAuth();
@@ -33,10 +34,9 @@ const Login = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 overflow-hidden">
         <div className="w-full flex justify-center items-center">
           <div className="card w-full md:max-w-[380px] lg:max-w-[440px] p-10 mt-6">
-            <div className="mb-10">{/* <Logo></Logo> */}</div>
             <div className=" font-semibold mb-4">
               <Link to="/" className="flex gap-2 text-center items-center">
                 <FaArrowLeft />
@@ -109,7 +109,7 @@ const Login = () => {
           </div>
         </div>
         <div className="col-span-2">
-          {/* <WelcomeBanner></WelcomeBanner> */}
+          <WelcomeBanner></WelcomeBanner>
         </div>
       </div>
     </div>

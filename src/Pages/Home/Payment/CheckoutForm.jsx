@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const CheckoutForm = () => {
   const stripe = useStripe();
@@ -66,6 +67,7 @@ const CheckoutForm = () => {
     if (confirmError) {
       setMessage(confirmError.message);
     } else if (paymentIntent.status === "succeeded") {
+      toast.success("Payment done");
       setMessage("Payment successful! 🎉");
       const payment = {
         name: user.displayName,
@@ -76,7 +78,6 @@ const CheckoutForm = () => {
         transactionId: paymentIntent.id,
       };
       const res = await axiosSecure.post("/payment", payment);
-      console.log(res.data);
     }
 
     setLoading(false);

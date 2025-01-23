@@ -16,7 +16,7 @@ const PaymentHistory = () => {
   };
 
   return (
-    <div className="p-5 min-h-screen">
+    <div className="p-5">
       <h2 className="text-2xl font-semibold mb-5">Payment History</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white shadow-md rounded-lg">
@@ -50,7 +50,6 @@ const PaymentHistory = () => {
           </tbody>
         </table>
       </div>
-      {/* Pagination */}
       <div className="mt-4 flex justify-center">
         <ReactPaginate
           reviousLabel={"← Previous"}

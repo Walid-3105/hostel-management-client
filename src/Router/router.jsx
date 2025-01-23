@@ -20,10 +20,12 @@ import AdminAllMeals from "../Pages/Dashboard/Admin/AdminAllMeals";
 import ServeMeals from "../Pages/Dashboard/Admin/ServeMeals";
 import UpcomingMeals from "../Pages/Dashboard/Admin/UpcomingMeals";
 import UpComingMealsCard from "../Pages/UpComingMealsCard/UpComingMealsCard";
+import ErrorPage from "../Shared/ErrorPage";
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",

@@ -6,6 +6,7 @@ import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import GoogleUserLogin from "../../Shared/GoogleUserLogin";
+import WelcomeBanner from "../../Shared/WelcomeBanner";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useAuth();
@@ -46,7 +47,6 @@ const Register = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
       <div className="w-full flex justify-center items-center">
         <div className="card w-full md:max-w-[380px] lg:max-w-[440px] p-10 mt-6">
-          <div className="mb-10">{/* <Logo /> */}</div>
           <div className="font-semibold mb-4">
             <Link to="/" className="flex gap-2 text-center items-center">
               <FaArrowLeft />
@@ -61,7 +61,6 @@ const Register = () => {
             </Link>
           </p>
 
-          {/* Form using React Hook Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="pb-3">
             {/* Name */}
             <div className="form-control">
@@ -174,7 +173,7 @@ const Register = () => {
               )}
             </div>
 
-            {/* Register Button */}
+            {/* Register */}
             <div className="form-control mt-6">
               <button type="submit" className="btn bg-[#023E8A] text-white">
                 Register
@@ -182,13 +181,14 @@ const Register = () => {
             </div>
           </form>
 
-          {/* Google Login Placeholder */}
           <div>
             <GoogleUserLogin />
           </div>
         </div>
       </div>
-      <div className="col-span-2">{/* <WelcomeBanner /> */}</div>
+      <div className="col-span-2">
+        <WelcomeBanner />
+      </div>
     </div>
   );
 };

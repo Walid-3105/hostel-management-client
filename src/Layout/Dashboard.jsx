@@ -20,9 +20,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
       <div>
-        {/* Overlay for Mobile */}
         {isOpen && (
           <div
             className="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden"
@@ -31,7 +29,7 @@ const Dashboard = () => {
         )}
 
         <div
-          className={`fixed md:relative min-h-screen w-64 bg-[#e0dfdfd2] shadow-lg z-20 transform ${
+          className={`fixed md:relative min-h-full w-64 bg-[#e0dfdfd2] shadow-lg z-20 transform ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } md:translate-x-0 transition-transform duration-300`}
         >
@@ -105,9 +103,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 p-4 md:p-10">
-        {/* Mobile Menu Button */}
         <button
           className="md:hidden p-3 bg-gray-200 rounded-full shadow-md"
           onClick={() => setIsOpen(!isOpen)}

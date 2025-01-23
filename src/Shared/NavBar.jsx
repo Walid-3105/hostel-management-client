@@ -79,7 +79,6 @@ const NavBar = () => {
                   <p className="text-sm mb-1 text-white">
                     {displayName || "Anonymous User"}
                   </p>
-                  {/* todo : make dashboard route ternary if user is admin opening route is adminProfile else User Profile */}
                   <Link
                     to={
                       userProfile?.role === "admin"
@@ -106,7 +105,12 @@ const NavBar = () => {
               />
             </div>
           ) : (
-            <Link to={"/login"}>Join Us</Link>
+            <Link
+              to={"/login"}
+              className="text-xl font-semibold hover:text-blue-800"
+            >
+              Join Us
+            </Link>
           )}
         </div>
       </div>

@@ -15,7 +15,7 @@ const MealDetails = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
-  // users data
+
   const { data: users = [] } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -24,7 +24,6 @@ const MealDetails = () => {
     },
   });
 
-  // Fetch meal details using React Query
   const {
     data: meal = {},
     isLoading,
@@ -37,21 +36,17 @@ const MealDetails = () => {
       return res.data;
     },
   });
-  console.log(meal);
 
-  // State for likes (sync with fetched data)
   const [like, setLike] = useState(0);
   const [showReviewBox, setShowReviewBox] = useState(false);
   const [reviewText, setReviewText] = useState("");
 
-  // Sync likes with fetched meal data
   useEffect(() => {
     if (meal.likes !== undefined) {
       setLike(meal.likes);
     }
   }, [meal.likes]);
 
-  // Handle like button click
   const handleLike = () => {
     if (user && user.email) {
       const newLikes = like + 1;
@@ -74,7 +69,6 @@ const MealDetails = () => {
     }
   };
 
-  // Mutation to update likes on the server
   const likeMutation = useMutation({
     mutationFn: async (newLikes) => {
       const res = await axiosSecure.patch(`/meal/${id}`, { likes: newLikes });
@@ -129,29 +123,45 @@ const MealDetails = () => {
   };
 
   const handleReviewSubmit = async () => {
-    const reviewData = {
-      mealId: meal._id,
-      title: meal.title,
-      email: user.email,
-      name: user.displayName,
-      likes: meal.likes,
-      reviews_count: meal.reviews_count,
-      review: reviewText,
-    };
+    if (user && user.email) {
+      const reviewData = {
+        mealId: meal._id,
+        title: meal.title,
+        email: user.email,
+        name: user.displayName,
+        likes: meal.likes,
+        reviews_count: meal.reviews_count,
+        review: reviewText,
+      };
 
-    try {
-      await axiosSecure.post("/review", reviewData);
+      try {
+        await axiosSecure.post("/review", reviewData);
 
-      await axiosSecure.patch(`/meal/${meal._id}`, {
-        reviews_count: (meal.reviews_count || 0) + 1,
+        await axiosSecure.patch(`/meal/${meal._id}`, {
+          reviews_count: (meal.reviews_count || 0) + 1,
+        });
+        toast.success("Review submitted successfully!");
+        setReviewText("");
+        setShowReviewBox(false);
+        refetch();
+      } catch (error) {
+        console.error("Error submitting review:", error);
+        toast.error("Failed to submit review!");
+      }
+    } else {
+      Swal.fire({
+        title: "Please Login to Review Meal",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
       });
-      toast.success("Review submitted successfully!");
-      setReviewText(""); // Clear textarea
-      setShowReviewBox(false); // Hide review box after submission
-      refetch(); // Update review count
-    } catch (error) {
-      console.error("Error submitting review:", error);
-      toast.error("Failed to submit review!");
     }
   };
 
@@ -159,7 +169,7 @@ const MealDetails = () => {
   if (isError) return <p>Error loading meal details.</p>;
 
   return (
-    <div className="min-h-screen pt-[64px]">
+    <div className="min-h-screen pt-[70px]">
       <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <img className="w-full h-56 object-cover" src={meal.image} alt="Meal" />
 
@@ -176,16 +186,10 @@ const MealDetails = () => {
             ))}
           </ul>
 
-          <p className="mt-3 text-gray-500 text-sm">
-            Posted on: {meal.postTime}
-          </p>
-
-          <div className="flex items-center justify-between mt-4">
-            <div className="flex items-center">
-              <AiFillStar className="text-yellow-500" />
-              <span className="ml-1 text-gray-700">{meal.rating}</span>
-            </div>
-
+          <div className="flex items-center justify-between  mt-4">
+            <p className="mt-3 text-gray-500 text-sm">
+              Posted on: {meal.postTime}
+            </p>
             <button
               onClick={handleLike}
               className="flex items-center gap-1 bg-blue-500 text-white px-4 py-1 rounded-md w-[80px] h-[32px]"

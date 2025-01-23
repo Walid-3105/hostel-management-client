@@ -87,9 +87,9 @@ const MyReviews = () => {
   };
 
   return (
-    <div className="p-5 min-h-screen">
+    <div className="p-5">
       <h2 className="text-2xl font-semibold mb-5">My Reviews</h2>
-      <div className="overflow-x-auto">
+      <div className="">
         <table className="min-w-full bg-white shadow-md rounded-lg">
           <thead className="bg-gray-100">
             <tr className="text-left">

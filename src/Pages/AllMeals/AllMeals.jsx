@@ -123,7 +123,6 @@ const AllMeals = () => {
               />
               <div className="p-4">
                 <h2 className="text-lg font-semibold">{meal.title}</h2>
-                <p className="text-gray-500">Rating: ⭐{meal.rating}</p>
                 <p className="text-xl font-bold text-green-600">
                   ${meal.price}
                 </p>

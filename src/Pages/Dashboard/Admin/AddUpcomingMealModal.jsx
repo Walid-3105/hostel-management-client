@@ -69,9 +69,13 @@ const AddUpcomingMealModal = ({ closeModal, refetch }) => {
           )}
 
           <select
+            defaultValue="default"
             {...register("category", { required: true })}
             className="select select-bordered w-full"
           >
+            <option disabled value="default">
+              Select a category
+            </option>
             <option value="breakfast">Breakfast</option>
             <option value="lunch">Lunch</option>
             <option value="dinner">Dinner</option>
@@ -126,7 +130,7 @@ const AddUpcomingMealModal = ({ closeModal, refetch }) => {
             >
               Cancel
             </button>
-            <button type="submit" className="btn bg-blue-800">
+            <button type="submit" className="btn bg-blue-800 text-white">
               Add Meal
             </button>
           </div>

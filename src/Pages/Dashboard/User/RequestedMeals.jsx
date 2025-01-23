@@ -9,16 +9,45 @@ const RequestedMeals = () => {
   const axiosSecure = useAxiosSecure();
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
   };
 
   const handleCancel = async (mealId) => {
-    const res = await axiosSecure.delete(`/request/${mealId}`);
-    refetch();
-    toast.success(`Meal request canceled successfully`);
+    toast(
+      (t) => (
+        <div>
+          <p className="text-lg font-medium">
+            Are you sure you want to cancel?
+          </p>
+          <div className="flex justify-end gap-2 mt-2">
+            <button
+              className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
+              onClick={async () => {
+                toast.dismiss(t.id);
+                await axiosSecure.delete(`/request/${mealId}`);
+                refetch();
+                toast.success("Meal request canceled successfully!");
+              }}
+            >
+              Yes, Cancel
+            </button>
+            <button
+              className="bg-gray-400 text-white px-3 py-1 rounded hover:bg-gray-600"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              No, Keep
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        duration: 5000,
+        position: "top-center",
+      }
+    );
   };
 
   const offset = currentPage * itemsPerPage;
@@ -30,7 +59,7 @@ const RequestedMeals = () => {
       <h2 className="text-2xl font-semibold mb-4">Requested Meals</h2>
 
       {requests?.length > 0 ? (
-        <div className="overflow-x-auto">
+        <div>
           <table className="table-auto w-full border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-200">
