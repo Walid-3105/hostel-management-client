@@ -15,7 +15,6 @@ const MealDetails = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
-  const location = useLocation();
 
   const { data: users = [] } = useQuery({
     queryKey: ["users"],
@@ -65,7 +64,6 @@ const MealDetails = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/login");
-          location;
         }
       });
     }
