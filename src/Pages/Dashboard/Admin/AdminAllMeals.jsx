@@ -225,6 +225,7 @@ const AdminAllMeals = () => {
                   className="input input-bordered w-full"
                 />
               </div>
+
               <div>
                 <label htmlFor="description" className="block">
                   Description

@@ -12,7 +12,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
   const handleLogin = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);

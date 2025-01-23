@@ -45,10 +45,10 @@ const CheckoutForm = () => {
     });
 
     if (error) {
-      // console.log("[error]", error);
+      console.log("[error]", error);
       setError(error.message);
     } else {
-      // console.log("Payment Method", paymentMethod);
+      console.log("Payment Method", paymentMethod);
       setError("");
     }
 

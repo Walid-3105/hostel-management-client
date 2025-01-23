@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { FaRegThumbsUp } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -15,6 +15,7 @@ const MealDetails = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
+  const location = useLocation();
 
   const { data: users = [] } = useQuery({
     queryKey: ["users"],
@@ -64,6 +65,7 @@ const MealDetails = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/login");
+          location;
         }
       });
     }

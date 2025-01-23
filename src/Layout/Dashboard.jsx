@@ -29,7 +29,7 @@ const Dashboard = () => {
         )}
 
         <div
-          className={`fixed md:relative min-h-full w-64 bg-[#e0dfdfd2] shadow-lg z-20 transform ${
+          className={`fixed  min-h-screen  w-64 bg-[#e0dfdfd2] shadow-lg z-20 transform ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           } md:translate-x-0 transition-transform duration-300`}
         >
@@ -103,14 +103,13 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex-1 p-4 md:p-10">
+      <div className="flex-1 p-4 md:p-10 ml-0 lg:ml-64 md:ml-64 ">
         <button
           className="md:hidden p-3 bg-gray-200 rounded-full shadow-md"
           onClick={() => setIsOpen(!isOpen)}
         >
           <FaBars size={24} />
         </button>
-
         <Outlet />
       </div>
     </div>
