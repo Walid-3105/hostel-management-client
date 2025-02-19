@@ -95,6 +95,11 @@ const Dashboard = () => {
             {/* shared item */}
             <div className="divider"></div>
             <li>
+              <NavLink to="/dashboard/overview">
+                <FaHome /> Overview
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/">
                 <FaHome /> Home
               </NavLink>

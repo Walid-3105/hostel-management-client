@@ -22,6 +22,7 @@ import UpcomingMeals from "../Pages/Dashboard/Admin/UpcomingMeals";
 import UpComingMealsCard from "../Pages/UpComingMealsCard/UpComingMealsCard";
 import ErrorPage from "../Shared/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
+import Overview from "../Shared/Overview";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -145,6 +146,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <PaymentHistory></PaymentHistory>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "overview",
+        element: (
+          <PrivateRoute>
+            <Overview></Overview>
           </PrivateRoute>
         ),
       },

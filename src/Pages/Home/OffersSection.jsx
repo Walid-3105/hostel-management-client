@@ -12,7 +12,6 @@ const offers = [
     description: "Enjoy a cozy stay with a special 20% discount this winter.",
     price: "$9.99/month",
     image: winterImage,
-    validity: "Valid till March 15, 2025",
   },
   {
     id: 2,
@@ -20,7 +19,6 @@ const offers = [
     description: "Special offer for students! Show your ID and get 25% off.",
     price: "$19.99/month",
     image: studentImage,
-    validity: "Limited Time Offer",
   },
   {
     id: 3,
@@ -28,7 +26,6 @@ const offers = [
     description: "Stay for 6 months or more and enjoy exclusive discounts.",
     price: "$29.99/month",
     image: longStay,
-    validity: "Available Year-Round",
   },
 ];
 
@@ -50,7 +47,6 @@ const OffersSection = () => {
               className="w-full h-40 object-cover"
             />
             <div className="p-4">
-              <span className="badge badge-primary">{offer.validity}</span>
               <h3 className="text-lg font-semibold mt-2">{offer.title}</h3>
               <p className="text-gray-600">{offer.description}</p>
               <p className="text-lg font-bold text-green-600 mt-2">
