@@ -5,8 +5,8 @@ import MembershipSection from "./MembershipSection";
 import FeaturedFacilities from "./FeaturedFacilities";
 import Testimonials from "./Testimonials";
 import OffersSection from "./OffersSection";
-import BlogSection from "./BlogSection";
 import HowItWorks from "./HowItWorks";
+import FAQSection from "./FaqSection";
 
 const Home = () => {
   return (
@@ -18,6 +18,7 @@ const Home = () => {
       <FeaturedFacilities></FeaturedFacilities>
       <Testimonials></Testimonials>
       <OffersSection></OffersSection>
+      <FAQSection></FAQSection>
     </div>
   );
 };

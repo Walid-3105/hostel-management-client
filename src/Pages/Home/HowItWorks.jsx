@@ -32,7 +32,7 @@ const HowItWorks = () => {
   useEffect(() => {
     controls.start({
       x: ["0%", "-100%"],
-      transition: { repeat: Infinity, duration: 8, ease: "linear" },
+      transition: { repeat: Infinity, duration: 6, ease: "linear" },
     });
   }, [controls]);
 
