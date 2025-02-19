@@ -17,7 +17,7 @@ const Home = () => {
       <MembershipSection></MembershipSection>
       <FeaturedFacilities></FeaturedFacilities>
       <Testimonials></Testimonials>
-      {/* <OffersSection></OffersSection> */}
+      <OffersSection></OffersSection>
     </div>
   );
 };
