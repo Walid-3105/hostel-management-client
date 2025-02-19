@@ -18,12 +18,12 @@ const steps = [
     icon: <FaCreditCard />,
     color: "text-purple-500",
   },
-  //   {
-  //     id: 4,
-  //     title: "Enjoy Your Stay",
-  //     icon: <FaSmile />,
-  //     color: "text-yellow-500",
-  //   },
+  {
+    id: 4,
+    title: "Enjoy Your Stay",
+    icon: <FaSmile />,
+    color: "text-yellow-500",
+  },
 ];
 
 const HowItWorks = () => {
