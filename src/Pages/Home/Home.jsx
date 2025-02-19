@@ -16,8 +16,8 @@ const Home = () => {
       <HowItWorks></HowItWorks>
       <MembershipSection></MembershipSection>
       <FeaturedFacilities></FeaturedFacilities>
-      {/* <Testimonials></Testimonials>
-      <OffersSection></OffersSection> */}
+      <Testimonials></Testimonials>
+      {/* <OffersSection></OffersSection> */}
     </div>
   );
 };
