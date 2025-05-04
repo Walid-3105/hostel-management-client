@@ -128,7 +128,7 @@ const AllMeals = () => {
                 </p>
                 <p className="text-xl font-bold">{meal.category}</p>
                 <Link to={`/meal/${meal._id}`}>
-                  <button className="btn btn-primary w-full mt-2">
+                  <button className="btn btn-sm btn-primary w-full mt-2">
                     View Details
                   </button>
                 </Link>

@@ -14,9 +14,6 @@ const MealCard = ({ item }) => {
           <button className="btn btn-sm bg-blue-800 w-full mt-2 text-white">
             View Details
           </button>
-          {/* <button className="btn btn-sm bg-blue-800 mt-2 text-white">
-                  Claim Offer
-                </button> */}
         </Link>
       </div>
     </div>
