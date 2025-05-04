@@ -7,18 +7,20 @@ import Testimonials from "./Testimonials";
 import OffersSection from "./OffersSection";
 import HowItWorks from "./HowItWorks";
 import FAQSection from "./FaqSection";
+import StudentLifeSection from "./StudentLifeSection ";
 
 const Home = () => {
   return (
     <div className="min-h-screen">
-      <Banner></Banner>
-      <MealsCategory></MealsCategory>
-      <HowItWorks></HowItWorks>
-      <MembershipSection></MembershipSection>
-      <FeaturedFacilities></FeaturedFacilities>
-      <Testimonials></Testimonials>
-      <OffersSection></OffersSection>
-      <FAQSection></FAQSection>
+      <Banner />
+      <MealsCategory />
+      <HowItWorks />
+      <MembershipSection />
+      <FeaturedFacilities />
+      <StudentLifeSection />
+      <Testimonials />
+      <OffersSection />
+      <FAQSection />
     </div>
   );
 };

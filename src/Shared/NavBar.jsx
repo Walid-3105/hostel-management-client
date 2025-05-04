@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 import useUsers from "../Hooks/useUsers";
+
 const NavBar = () => {
   const { user, logOut } = useAuth();
   const { userProfile } = useUsers();
@@ -102,6 +103,7 @@ const NavBar = () => {
                 className="w-8 h-8 lg:w-10 lg:h-10 rounded-full border-2 border-white"
                 src={profile || "https://via.placeholder.com/150"}
                 alt="User Profile"
+                referrerPolicy="no-referrer"
               />
             </div>
           ) : (

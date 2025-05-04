@@ -136,7 +136,7 @@ const OverviewPage = () => {
             <div className="card w-full bg-base-100 shadow-xl">
               <div className="card-body">
                 <h2 className="text-lg font-medium">Total Payments</h2>
-                <p className="text-3xl font-bold">{data.paymentCount}</p>
+                <p className="text-3xl font-bold">{data.paymentCount} $</p>
               </div>
             </div>
             <div className="card w-full bg-base-100 shadow-xl">
@@ -157,7 +157,7 @@ const OverviewPage = () => {
             <div className="card w-full bg-base-100 shadow-xl">
               <div className="card-body">
                 <h2 className="text-lg font-medium">My Payments</h2>
-                <p className="text-3xl font-bold">{data.paymentCount}</p>
+                <p className="text-3xl font-bold">{data.paymentCount} $</p>
               </div>
             </div>
           </>
