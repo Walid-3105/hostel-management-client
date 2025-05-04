@@ -11,48 +11,50 @@ import {
 const FeaturedFacilities = () => {
   const facilities = [
     {
-      icon: <FaWifi size={30} className="text-blue-500" />,
+      icon: <FaWifi size={32} className="text-blue-600" />,
       name: "Free Wi-Fi",
     },
     {
-      icon: <FaBed size={30} className="text-green-500" />,
+      icon: <FaBed size={32} className="text-green-600" />,
       name: "Comfortable Rooms",
     },
     {
-      icon: <FaUtensils size={30} className="text-red-500" />,
+      icon: <FaUtensils size={32} className="text-red-600" />,
       name: "Cafeteria",
     },
     {
-      icon: <FaShieldAlt size={30} className="text-purple-500" />,
+      icon: <FaShieldAlt size={32} className="text-purple-600" />,
       name: "24/7 Security",
     },
     {
-      icon: <FaUserTie size={30} className="text-yellow-500" />,
+      icon: <FaUserTie size={32} className="text-yellow-600" />,
       name: "Friendly Staff",
     },
     {
-      icon: <FaCar size={30} className="text-gray-500" />,
+      icon: <FaCar size={32} className="text-gray-600" />,
       name: "Parking Available",
     },
   ];
 
   return (
-    <section className="py-12 bg-gray-100 text-center my-14 p-6">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800">
+    <section className="py-16 bg-gradient-to-b from-gray-50 to-gray-100 text-center my-14 px-4">
+      <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
         🏨 Featured Facilities
       </h2>
-      <p className="text-gray-600 mb-8">
-        Experience top-notch services for a comfortable stay.
+      <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+        Experience top-notch services for a comfortable and memorable stay.
       </p>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {facilities.map((facility, index) => (
           <div
             key={index}
-            className="flex flex-col items-center bg-white p-4 rounded-lg shadow-md"
+            className="flex flex-col items-center bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer"
           >
             {facility.icon}
-            <p className="mt-2 text-lg font-semibold">{facility.name}</p>
+            <p className="mt-3 text-lg font-semibold text-gray-800">
+              {facility.name}
+            </p>
           </div>
         ))}
       </div>
