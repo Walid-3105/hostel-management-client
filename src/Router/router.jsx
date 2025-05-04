@@ -10,7 +10,7 @@ import MyProfile from "../Pages/Dashboard/User/MyProfile";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import AdminRoute from "./AdminRoute";
 import MealDetails from "../Pages/Home/Meals/MealDetails";
-import CheckoutForm from "../Pages/Home/Payment/CheckoutForm";
+
 import Payment from "../Pages/Home/Payment/Payment";
 import AllMeals from "../Pages/AllMeals/AllMeals";
 import RequestedMeals from "../Pages/Dashboard/User/RequestedMeals";

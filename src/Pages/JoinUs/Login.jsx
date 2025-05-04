@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
@@ -7,11 +7,14 @@ import GoogleUserLogin from "../../Shared/GoogleUserLogin";
 import WelcomeBanner from "../../Shared/WelcomeBanner";
 
 const Login = () => {
-  const { userLogin, signInWithGoogle } = useAuth();
+  const { userLogin } = useAuth();
   const [error, setError] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const emailInputRef = useRef(null);
+  const passwordInputRef = useRef(null);
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = new FormData(e.target);
@@ -21,7 +24,6 @@ const Login = () => {
     userLogin(email, password)
       .then((result) => {
         e.target.reset();
-        // console.log(result);
         toast.success("Successfully Log In");
         navigate(location?.state ? location.state : "/");
       })
@@ -29,6 +31,20 @@ const Login = () => {
         setError({ ...error, login: err.code });
         toast.error("Give Correct Password & Email");
       });
+  };
+
+  const fillAdminCredentials = () => {
+    if (emailInputRef.current && passwordInputRef.current) {
+      emailInputRef.current.value = "admin@gmail.com";
+      passwordInputRef.current.value = "Wa@123";
+    }
+  };
+
+  const fillUserCredentials = () => {
+    if (emailInputRef.current && passwordInputRef.current) {
+      emailInputRef.current.value = "user@gmail.com";
+      passwordInputRef.current.value = "Wa@123";
+    }
   };
 
   return (
@@ -49,6 +65,20 @@ const Login = () => {
                 Register
               </Link>
             </p>
+            <div className="flex gap-4 mb-4">
+              <button
+                onClick={fillAdminCredentials}
+                className="btn bg-[#023E8A] text-white"
+              >
+                Log in as Admin
+              </button>
+              <button
+                onClick={fillUserCredentials}
+                className="btn bg-[#023E8A] text-white"
+              >
+                Log in as User
+              </button>
+            </div>
             <form onSubmit={handleLogin} className="pb-3">
               <div className="form-control">
                 <label className="label">
@@ -62,6 +92,7 @@ const Login = () => {
                   placeholder="email"
                   className="input input-bordered"
                   required
+                  ref={emailInputRef}
                 />
               </div>
               <div className="form-control relative ">
@@ -76,15 +107,15 @@ const Login = () => {
                   placeholder="password"
                   className="input input-bordered"
                   required
+                  ref={passwordInputRef}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="btn btn-xs absolute right-4 bottom-[46px]"
                 >
-                  {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
-
                 <label className="label text-gray-700 font-semibold">
                   <Link
                     to="/auth/forgetPassword"
@@ -101,14 +132,13 @@ const Login = () => {
                 <button className="btn bg-[#023E8A] text-white">Login</button>
               </div>
             </form>
-            {/* Goggle */}
             <div>
               <GoogleUserLogin />
             </div>
           </div>
         </div>
         <div className="col-span-2">
-          <WelcomeBanner></WelcomeBanner>
+          <WelcomeBanner />
         </div>
       </div>
     </div>
